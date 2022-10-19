@@ -4,7 +4,7 @@ Description=V2Ray Port Change Service
 [Service]
 User=root
 WorkingDirectory=/root/v2ray-port-change
-ExecStart=/bin/bash -c 'node index.js'
+ExecStart=/bin/bash -c 'source /root/.nvm/nvm.sh && node index.js'
 Restart=on-failure
 
 [Install]
