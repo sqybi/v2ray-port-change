@@ -15,15 +15,22 @@ app.get("/socket.io.min.js", (req, res) => {
 })
 
 io.on("connection", (socket) => {
-  socket.emit("message", "Connected!");
+  socket.emit("status", "Connected!");
 
   socket.on("request", (port) => {
-    socket.emit("status", "Executing...");
+    socket.emit("status", "Executing sed...");
     cp.exec(`sed -ri 's/(listen) [0-9]+ (ssl http2;)/\\1 ${port} \\2/g' /etc/nginx/nginx.conf`, (err, stdout, stderr) => {
       if (err) {
-        socket.emit("status", `Error happened when executing:\n${err}`);
+        socket.emit("status", `Error happened when executing sed:\n${err}`);
       } else {
-        socket.emit("status", "Done!");
+        socket.emit("status", "Restarting Nginx...");
+				cp.exec("/usr/bin/systemctl restart nginx", (err, stdout, stderr) => {
+					if (err) {
+            socket.emit("status", `Error happened when restarting Nginx:\n${err}`);
+					} else {
+            socket.emit("status", "Done!");
+					}
+				});
       }
     });
   });
