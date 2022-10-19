@@ -1,0 +1,23 @@
+{
+  "name": "v2ray-port-change",
+  "version": "1.0.0",
+  "description": "A simple webpage to change the proxy's port",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sqybi/v2ray-port-change.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sqybi/v2ray-port-change/issues"
+  },
+  "homepage": "https://github.com/sqybi/v2ray-port-change#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.5.3"
+  }
+}

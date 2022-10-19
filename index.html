@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+<script src="socket.io.min.js"></script>
+<script>
+  const socket = io();
+
+  socket.on("status", (message) => {
+    document.getElementById("message").innerText = message;
+  });
+
+</script>
+</head>
+<body>
+  <div>Port: <input id="port" /></div>
+  <button onclick="submitPort()">Update Port</button>
+  <div id="message" />
+  <script>
+  function submitPort() {
+    socket.emit("request", document.getElementById("port").value);
+  }
+  </script>
+</body>
+</html>
