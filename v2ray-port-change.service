@@ -1,0 +1,11 @@
+[Unit]
+Description=V2Ray Port Change Service
+
+[Service]
+User=root
+WorkingDirectory=/root/v2ray-port-change
+ExecStart=/bin/bash -c 'node index.js'
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

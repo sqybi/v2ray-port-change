@@ -15,7 +15,14 @@ app.get("/socket.io.min.js", (req, res) => {
 })
 
 io.on("connection", (socket) => {
-  socket.emit("status", "Connected!");
+	socket.emit("status", "Connecting...");
+	cp.exec("grep -oP '(?<=listen )[0-9]+(?= ssl http2;)' /etc/nginx/nginx.conf", (err, stdout, stderr) => {
+		if (err) {
+			socket.emit("status", `Error happened when connecting:\n${err}`);
+		} else {
+      socket.emit("status", `Connected!\nCurrent port: ${stdout}`);
+		}
+	});
 
   socket.on("request", (port) => {
     socket.emit("status", "Executing sed...");
