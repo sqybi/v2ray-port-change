@@ -4,6 +4,9 @@ Description=V2Ray Port Change Service
 [Service]
 User=root
 WorkingDirectory=/root/v2ray-port-change
+Environment="SUBSCRIPTION_NAME=AGENT"
+Environment="SUBSCRIPTION_ADDR=127.0.0.1"
+Environment="SUBSCRIPTION_HOST=example.com"
 ExecStart=/bin/bash -c 'source /root/.nvm/nvm.sh && node index.js'
 Restart=on-failure
 
