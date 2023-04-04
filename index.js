@@ -22,7 +22,7 @@ app.get("/socket.io.min.js", (req, res) => {
 
 app.get("/subscription", async (req, res) => {
     const subscription_port = (await exec("grep -oP '(?<=listen )[0-9]+(?=.*; #mark)' /etc/nginx/nginx.conf")).stdout.trim();
-    const subscription_id = (await exec(`grep -oP '(?<="id": ")[0-9a-f\-]+(?=",)' /usr/local/etc/v2ray/config.json`)).stdout.trim();
+    const subscription_id = (await exec(`grep -oP '(?<="id": ")[0-9a-f\-]+(?=")' /usr/local/etc/v2ray/config.json`)).stdout.trim();
     const subscription_path = (await exec(`grep -oP '(?<="path": ").*(?=")' /usr/local/etc/v2ray/config.json`)).stdout.trim();
     const subscription_text = `{"v": "2","ps": "${subscription_name}","add": "${subscription_addr}","port": "${subscription_port}","id": "${subscription_id}","aid": "0","scy": "auto","net": "ws","type": "none","host": "${subscription_host}","path": "${subscription_path}","tls": "","sni": "","alpn": ""}`;
     const subscription_base64 = Buffer.from(subscription_text).toString("base64");
