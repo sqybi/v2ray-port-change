@@ -1,24 +1,76 @@
 <!doctype html>
 <html>
 <head>
-<script src="socket.io.min.js"></script>
-<script>
-  const socket = io();
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 50px;
+    }
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input[type="text"] {
+      width: calc(100% - 20px);
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #3e8e41;
+    }
+    #message {
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      display: none; /* hide the div by default */
+    }
+  </style>
+  <script src="socket.io.min.js"></script>
+  <script>
+    const socket = io();
 
-  socket.on("status", (message) => {
-    document.getElementById("message").innerText = message;
-  });
-
-</script>
+    socket.on("status", (message) => {
+      const messageDiv = document.getElementById("message");
+      messageDiv.innerText = message;
+      messageDiv.style.display = message ? "block" : "none"; // show/hide the div based on message content
+    });
+  </script>
 </head>
 <body>
-  <div>Port: <input id="port" /></div>
-  <button onclick="submitPort()">Update Port</button>
-  <div id="message" />
+  <h1>V2Ray Port Changer</h1>
+  <div class="container">
+    <label for="port">Port:</label>
+    <input type="text" id="port" />
+    <button onclick="submitPort()">Update Port</button>
+    <div id="message"></div>
+  </div>
   <script>
-  function submitPort() {
-    socket.emit("request", document.getElementById("port").value);
-  }
+    function submitPort() {
+      socket.emit("request", document.getElementById("port").value);
+    }
   </script>
 </body>
 </html>
